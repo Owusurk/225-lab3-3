@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'roseaw-dockerhub'  
-        DOCKER_IMAGE = 'cithit/roseaw'                               //<-----change this to your MiamiID!
+        DOCKER_IMAGE = 'cithit/owusurk'                               //<-----change this to your MiamiID!
         IMAGE_TAG = "build-${BUILD_NUMBER}"
-        GITHUB_URL = 'https://github.com/miamioh-cit/225-lab3-3.git' //<-----change this to match this new repository!
-        KUBECONFIG = credentials('roseaw-225')                           //<-----change this to match your kubernetes credentials (MiamiID-225)!  1 More change on line 63!
+        GITHUB_URL = 'https://github.com/Owusurk/225-lab3-3.git' //<-----change this to match this new repository!
+        KUBECONFIG = credentials('owusurk-225')                           //<-----change this to match your kubernetes credentials (MiamiID-225)!  1 More change on line 63!
     }
 
     stages {
@@ -36,8 +36,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").push()
+                    docker.withRegistry('https://registry.hub.docker.com', 'roseaw-dockerhub') {
+                docker.build("${DOCKER_IMAGE}:${IMAGE_TAG}")
                     }
                 }
             }
